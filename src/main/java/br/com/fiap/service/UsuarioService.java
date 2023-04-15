@@ -15,15 +15,14 @@ import java.util.UUID;
 @Service
 public class UsuarioService {
 
-    @Autowired
-    private UsuarioRepository usuarioRepository;
-    @Autowired
-    private SaldoService saldoService;
-    @Autowired
-    private ProdutoService produtoService;
+    private final UsuarioRepository usuarioRepository;
+    private final SaldoService saldoService;
     private final List<UserValidator> userValidators;
+
     @Autowired
-    public UsuarioService(List<UserValidator> userValidators) {
+    public UsuarioService(UsuarioRepository usuarioRepository, SaldoService saldoService, List<UserValidator> userValidators) {
+        this.usuarioRepository = usuarioRepository;
+        this.saldoService = saldoService;
         this.userValidators = userValidators;
     }
 
@@ -49,12 +48,24 @@ public class UsuarioService {
         usuarioRepository.save(user);
     }
 
+    public void activateUser(UUID uuid) {
+        Usuario user = this.findById(uuid);
+
+        if (user.isAtivo()) {
+            throw new IllegalArgumentException("Usuário já está ativo");
+        }
+
+        user.setAtivo(true);
+
+        usuarioRepository.save(user);
+    }
+
     public Usuario findById(UUID uuid) {
         return usuarioRepository.findById(uuid)
                 .orElseThrow(() -> new EntityNotFoundException("Usuário não encontrado"));
     }
 
-    public Collection<Usuario> findAllUsers() {
+    public List<Usuario> findAllUsers() {
         return usuarioRepository.findAll();
     }
 
