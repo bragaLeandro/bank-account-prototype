@@ -1,9 +1,16 @@
 package br.com.fiap.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
 @Table(name = "chave_pix")
 public class ChavePix {
@@ -16,9 +23,9 @@ public class ChavePix {
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
+    @JsonIgnore
     private Usuario usuario;
-
     private String valorChave;
-    private String chaveEVP;
+    private UUID chaveEVP;
 
 }

@@ -1,12 +1,14 @@
 package br.com.fiap.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
+@RequiredArgsConstructor
 @Entity
 @Table(name = "transacao_pix")
 public class TransacaoPix {
@@ -36,5 +38,6 @@ public class TransacaoPix {
     private void setDefaultDate() {
         this.dataHoraTransacao = LocalDateTime.now();
     }
+
 }
 
