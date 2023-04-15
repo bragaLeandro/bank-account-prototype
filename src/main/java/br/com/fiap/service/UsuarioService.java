@@ -1,44 +1,35 @@
 package br.com.fiap.service;
 
-import br.com.fiap.entity.Produto;
 import br.com.fiap.entity.Saldo;
 import br.com.fiap.entity.Usuario;
-import br.com.fiap.repository.ProdutoRepository;
 import br.com.fiap.repository.UsuarioRepository;
-import br.com.fiap.validator.UsuarioValidator;
+import br.com.fiap.validator.UserValidator;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class UsuarioService {
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
     @Autowired
-    SaldoService saldoService;
-
+    private SaldoService saldoService;
     @Autowired
-    ProdutoService produtoService;
+    private ProdutoService produtoService;
+    private final List<UserValidator> userValidators;
+    @Autowired
+    public UsuarioService(List<UserValidator> userValidators) {
+        this.userValidators = userValidators;
+    }
 
     public void createUser(Usuario user) {
 
-        if (this.emailAlreadyExists(user.getEmail()))
-            throw new IllegalArgumentException("Email já cadastrado");
-
-        if (this.hasThreeAccounts(user.getCpf()))
-            throw new IllegalArgumentException("Não é possível ter mais de 3 contas para o mesmo cpf");
-
-        if (!UsuarioValidator.hasValidCpf(user.getCpf()))
-            throw new IllegalArgumentException("CPF inválido");
-
-        for (String p : user.getProdutos()) {
-            produtoService.findBy
-        }
+        userValidators.forEach(validator -> validator.validate(user));
 
         Saldo initialBalance = saldoService.setInicialBalance(user);
         user.setSaldo(initialBalance);
@@ -67,12 +58,6 @@ public class UsuarioService {
         return usuarioRepository.findAll();
     }
 
-    public boolean emailAlreadyExists(String email) {
-        return usuarioRepository.findUsuarioByEmail(email).isPresent();
-    }
 
-    public boolean hasThreeAccounts(String cpf) {
-        return usuarioRepository.findUsuariosByCpf(cpf).size() >= 3;
-    }
 
 }

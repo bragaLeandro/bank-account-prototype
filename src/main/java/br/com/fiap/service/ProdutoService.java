@@ -19,8 +19,8 @@ public class ProdutoService {
         produtoRepository.save(product);
     }
 
-    public boolean productIsActive(String nome) {
-    }
+//    public boolean productIsActive(String nome) {
+//    }
 
     public Produto findById(UUID uuid) {
         return produtoRepository.findById(uuid)
