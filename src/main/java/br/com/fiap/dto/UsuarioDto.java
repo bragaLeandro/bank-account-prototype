@@ -1,5 +1,6 @@
 package br.com.fiap.dto;
 
+import br.com.fiap.entity.Produto;
 import br.com.fiap.entity.Usuario;
 import lombok.Data;
 
@@ -25,7 +26,9 @@ public class UsuarioDto {
     private LocalDate dataCadastro;
     private LocalDate dataAtualizacao;
     private boolean ativo;
-    private List<String> produtos;
+    private List<Produto> produtos;
+
+    private String senha;
 
     public Usuario toEntity() {
         Usuario usuario = new Usuario();
@@ -45,6 +48,7 @@ public class UsuarioDto {
         usuario.setDataAtualizacao(dataAtualizacao);
         usuario.setAtivo(ativo);
         usuario.setProdutos(produtos);
+        usuario.setSenha(senha);
         return usuario;
     }
 }
