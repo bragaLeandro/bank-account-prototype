@@ -33,7 +33,7 @@ public class TransacaoPix {
     private String descricao;
 
     @PrePersist
-    private void prePersist() {
+    private void setDefaultDate() {
         this.dataHoraTransacao = LocalDateTime.now();
     }
 }
