@@ -25,4 +25,9 @@ public class ProdutoService {
         return produtoRepository.findById(uuid)
                 .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
     }
+
+    public Produto findByName(String nome) {
+        return produtoRepository.findProdutoByNomeAndHabilitado(nome, true)
+                .orElseThrow(() -> new EntityNotFoundException("Produto não encontrado"));
+    }
 }
