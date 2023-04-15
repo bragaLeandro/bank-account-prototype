@@ -16,38 +16,69 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Usuario {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
+
+    @Column(nullable = false)
     private String nome;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private String nomeMae;
+
+    @Column(nullable = false)
     private String senha;
+
+    @Column(nullable = false)
     private String telefone;
+
+    @Column(nullable = false)
     private LocalDate dataNascimento;
+
+    @Column(nullable = false)
     private String endereco;
 
+    @Column(nullable = false)
     private String cpf;
+
+    @Column(nullable = false)
     private String rg;
+
+    @Column(nullable = false)
     private boolean pessoaExpostaPoliticamente;
+
+    @Column(nullable = false)
     private double rendaMensal;
+
+    @Column(nullable = false)
     private double valorPatrimonio;
+
+    @Column(nullable = false)
     private LocalDate dataCadastro;
+
+    @Column(nullable = false)
     private LocalDate dataAtualizacao;
+
+    @Column(nullable = false)
     private boolean ativo;
 
     @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
     private Saldo saldo;
 
-    @ElementCollection
-    @CollectionTable(name = "usuario_produtos", joinColumns = @JoinColumn(name = "usuario_id"))
-    @Column(name = "produto")
-    private List<String> produtos;
+    @ManyToMany
+    @JoinTable(name = "usuario_produtos",
+            joinColumns = @JoinColumn(name = "usuario_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id"))
+    private List<Produto> produtos;
 
     public Usuario(UUID id, String nome, String email, String nomeMae, String telefone,
                    LocalDate dataNascimento, String endereco, String cpf, String rg,
                    boolean pessoaExpostaPoliticamente, double rendaMensal, double valorPatrimonio,
-                   LocalDate dataCadastro, LocalDate dataAtualizacao, boolean ativo, List<String> produtos) {
+                   LocalDate dataCadastro, LocalDate dataAtualizacao, boolean ativo, List<Produto> produtos) {
         this.id = id;
         this.nome = nome;
         this.email = email;
