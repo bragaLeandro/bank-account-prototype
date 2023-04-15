@@ -1,5 +1,6 @@
 package br.com.fiap.controller;
 
+import br.com.fiap.constants.CommonConstants;
 import br.com.fiap.dto.UsuarioDto;
 import br.com.fiap.entity.Usuario;
 import br.com.fiap.service.UsuarioService;
@@ -22,7 +23,7 @@ public class UserController {
     public ResponseEntity createUser(@RequestBody UsuarioDto user) {
         try {
             this.usuarioService.createUser(user.toEntity());
-            return ResponseEntity.ok(user);
+            return ResponseEntity.ok(CommonConstants.SUCCESS_MESSAGE);
         } catch (IllegalArgumentException ie) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ie.getMessage());
         }
