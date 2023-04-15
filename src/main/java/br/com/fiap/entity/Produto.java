@@ -1,10 +1,12 @@
 package br.com.fiap.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
+@Data
 @Entity
 @Table(name = "produto")
 public class Produto {
