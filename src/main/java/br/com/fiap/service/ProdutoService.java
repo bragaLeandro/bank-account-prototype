@@ -1,7 +1,6 @@
 package br.com.fiap.service;
 
 import br.com.fiap.entity.Produto;
-import br.com.fiap.entity.Usuario;
 import br.com.fiap.repository.ProdutoRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
