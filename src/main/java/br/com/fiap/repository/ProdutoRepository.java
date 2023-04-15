@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface ProdutoRepository extends JpaRepository<Produto, UUID> {
 
-    Optional<Produto> findProdutoByNomeAndHabilitado(String nome, boolean status);
+    Optional<Produto> findProdutoByNome(String nome);
 
 }
