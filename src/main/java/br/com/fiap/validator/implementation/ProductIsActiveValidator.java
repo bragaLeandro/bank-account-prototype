@@ -18,8 +18,7 @@ public class ProductIsActiveValidator extends UserValidator {
     }
     @Override
     public void validate(Usuario user) {
-        for (String productName : user.getProdutos()) {
-            Produto product = produtoService.findByName(productName);
+        for (Produto product : user.getProdutos()) {
             if (!product.isHabilitado())
                 throw new IllegalArgumentException("O produto " + product.getNome() + " não está habilitado");
         }
