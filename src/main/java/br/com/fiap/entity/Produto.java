@@ -15,20 +15,16 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false)
     private LocalDate dataCadastro;
 
-    @Column(nullable = false)
     private LocalDate dataAtualizacao;
 
-    @Column(nullable = false)
     private boolean habilitado;
 
     @PrePersist
-    private void prePersist() {
+    private void setDefaultDates() {
         this.dataCadastro = LocalDate.now();
         this.dataAtualizacao = LocalDate.now();
     }
