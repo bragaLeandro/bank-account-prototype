@@ -26,6 +26,8 @@ public class UserController {
             return ResponseEntity.ok(CommonConstants.SUCCESS_MESSAGE);
         } catch (IllegalArgumentException ie) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ie.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
 
@@ -36,6 +38,8 @@ public class UserController {
             return ResponseEntity.ok("Usuario desativado");
         } catch (IllegalArgumentException ie) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ie.getMessage());
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
 
