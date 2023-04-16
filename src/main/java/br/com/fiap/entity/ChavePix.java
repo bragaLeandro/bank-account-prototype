@@ -17,6 +17,7 @@ public class ChavePix {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="chave_pix_id")
     private UUID id;
     private String tipo;
     private boolean ativa;
@@ -26,6 +27,5 @@ public class ChavePix {
     @JsonIgnore
     private Usuario usuario;
     private String valorChave;
-    private UUID chaveEVP;
 
 }
