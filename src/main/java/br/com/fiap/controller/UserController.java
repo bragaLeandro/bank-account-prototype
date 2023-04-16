@@ -2,6 +2,7 @@ package br.com.fiap.controller;
 
 import br.com.fiap.constants.CommonConstants;
 import br.com.fiap.dto.UsuarioDto;
+import br.com.fiap.dto.UsuarioResponseDto;
 import br.com.fiap.entity.Usuario;
 import br.com.fiap.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,11 +59,16 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
+
     @GetMapping("/all")
-    public List<Usuario> findAll() {
+    public List<UsuarioResponseDto> findAll() {
         try {
-            return this.usuarioService.findAllUsers();
-        } catch(Exception ex) {
+            List<Usuario> usuarios = this.usuarioService.findAllUsers();
+
+            return usuarios.stream()
+                    .map(UsuarioResponseDto::fromEntity)
+                    .toList();
+        } catch (Exception ex) {
             ex.printStackTrace();
             return null;
         }
