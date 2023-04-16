@@ -1,9 +1,9 @@
-package br.com.fiap.validator.implementation;
+package br.com.fiap.validator.user.implementation;
 
 import br.com.fiap.entity.Produto;
 import br.com.fiap.entity.Usuario;
 import br.com.fiap.service.ProdutoService;
-import br.com.fiap.validator.UserValidator;
+import br.com.fiap.validator.user.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +18,15 @@ public class ProductIsActiveValidator extends UserValidator {
     }
     @Override
     public void validate(Usuario user) {
-        for (Produto product : user.getProdutos()) {
+        //TODO: Move this validation to a different class
+        if (user.getProdutos() == null || user.getProdutos().isEmpty()) {
+            throw new IllegalArgumentException("A lista de produtos está vazia");
+        }
+
+        for (Produto newProduct : user.getProdutos()) {
+            Produto product = produtoService.findByName(newProduct.getNome());
             if (!product.isHabilitado())
-                throw new IllegalArgumentException("O produto " + product.getNome() + " não está habilitado");
+                throw new IllegalArgumentException("O produto " + newProduct.getNome() + " não está habilitado");
         }
     }
 }
