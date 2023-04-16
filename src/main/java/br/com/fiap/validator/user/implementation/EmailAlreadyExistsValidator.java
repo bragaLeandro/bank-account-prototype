@@ -1,7 +1,7 @@
-package br.com.fiap.validator.implementation;
+package br.com.fiap.validator.user.implementation;
 
 import br.com.fiap.entity.Usuario;
-import br.com.fiap.validator.UserValidator;
+import br.com.fiap.validator.user.UserValidator;
 import org.springframework.stereotype.Component;
 
 @Component
