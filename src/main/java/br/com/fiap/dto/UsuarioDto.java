@@ -27,7 +27,6 @@ public class UsuarioDto {
     private LocalDate dataAtualizacao;
     private boolean ativo;
     private List<Produto> produtos;
-
     private String senha;
 
     public Usuario toEntity() {
