@@ -1,10 +1,9 @@
-package br.com.fiap.validator;
+package br.com.fiap.validator.user;
 
 import br.com.fiap.entity.Usuario;
 import br.com.fiap.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 public abstract class UserValidator {
