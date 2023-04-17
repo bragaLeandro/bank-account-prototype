@@ -39,5 +39,11 @@ public class TransacaoPix {
         this.dataHoraTransacao = LocalDateTime.now();
     }
 
+    public TransacaoPix(Usuario debitor, Usuario creditor, String status, double valor) {
+        this.debitor = debitor;
+        this.creditor = creditor;
+        this.status = status;
+        this.valor = valor;
+    }
 }
 
