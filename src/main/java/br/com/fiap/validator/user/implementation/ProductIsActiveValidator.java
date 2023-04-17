@@ -18,11 +18,6 @@ public class ProductIsActiveValidator extends UserValidator {
     }
     @Override
     public void validate(Usuario user) {
-        //TODO: Move this validation to a different class
-        if (user.getProdutos() == null || user.getProdutos().isEmpty()) {
-            throw new IllegalArgumentException("A lista de produtos está vazia");
-        }
-
         for (Produto newProduct : user.getProdutos()) {
             Produto product = produtoService.findByName(newProduct.getNome());
             if (!product.isHabilitado())
