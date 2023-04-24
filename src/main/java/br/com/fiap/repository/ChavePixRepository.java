@@ -12,5 +12,6 @@ import java.util.UUID;
 public interface ChavePixRepository extends JpaRepository<ChavePix, UUID> {
 
     List<ChavePix> findChavePixesByUsuario(Usuario usuario);
+
     Optional<ChavePix> findChavePixByValorChave(String valorChave);
 }
