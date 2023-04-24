@@ -10,17 +10,18 @@ import br.com.fiap.repository.TransacaoPixRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class TransacaoPixService {
 
+    private final UsuarioService usuarioService;
     private final SaldoRepository saldoRepository;
     private final ChavePixRepository chavePixRepository;
     private final TransacaoPixRepository transacaoPixRepository;
 
-    public TransacaoPixService(SaldoRepository saldoRepository, ChavePixRepository chavePixRepository, TransacaoPixRepository transacaoPixRepository) {
+    public TransacaoPixService(UsuarioService usuarioService, SaldoRepository saldoRepository, ChavePixRepository chavePixRepository, TransacaoPixRepository transacaoPixRepository) {
+        this.usuarioService = usuarioService;
         this.saldoRepository = saldoRepository;
         this.chavePixRepository = chavePixRepository;
         this.transacaoPixRepository = transacaoPixRepository;
@@ -55,5 +56,18 @@ public class TransacaoPixService {
 
         transacaoPixRepository.save(transacaoPix);
         saldoRepository.saveAll(modifiedBalances);
+    }
+
+    public List<TransacaoPix> getHistoryTransactions(UUID userUuid) {
+        List<TransacaoPix> transactions = new ArrayList<TransacaoPix>();
+        Usuario user = usuarioService.findById(userUuid);
+
+        List<TransacaoPix> creditor = this.transacaoPixRepository.findTransacaoPixesByCreditor(user);
+        List<TransacaoPix> debitor = this.transacaoPixRepository.findTransacaoPixesByDebitor(user);
+
+        if (!creditor.isEmpty()) transactions.addAll(creditor);
+        if (!debitor.isEmpty()) transactions.addAll(debitor);
+
+        return transactions;
     }
 }
